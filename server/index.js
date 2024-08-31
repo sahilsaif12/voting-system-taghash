@@ -13,8 +13,3 @@ ConnectDb()
     console.log(`Mysql db connection error : ${err.message}`);
 })
 
-// connection.query('select * from snippets')
-// .then((res)=>{
-//     console.log(res[0]);
-
-// })

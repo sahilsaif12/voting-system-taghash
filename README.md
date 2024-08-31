@@ -44,3 +44,15 @@
 • `Analytics` component handle the analytics screen where voting summary will be visible in different charts with help of chart.js<br/>
       
 It contains 3 different chart - `Line chart` , `Bar chart`, `Pie Chart`
+
+### Backend :
+• There are total 3 endpoint 
+
+    
+        1. POST /voters  ( to add new vote details) 
+        2. GET /voters/getVoteDateWise (to get date wise vote count ) 
+        3. GET /voters/voteCount ( to get overall vote count)
+    
+• All logic of these endpoints are written in `voter.controller.js` file and routing is handled in `voter.router.js` file <br/>
+• To generate query Prisma ORM is been used
+      

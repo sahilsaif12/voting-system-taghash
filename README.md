@@ -7,8 +7,7 @@
     ORM- Prisma
     important packages used - tailwind , chart js, primereact
 -------
-![image](https://s6.ezgif.com/tmp/ezgif-6-c726803116.gif)
-
+![image](https://s6.ezgif.com/tmp/ezgif-6-1b6fabe6d7.gif)
 ## Set up the application
 1. clone the repository-
    
@@ -35,3 +34,13 @@
    `
      npm run dev
    `
+
+
+## Overview
+
+### Frontend :
+• It mainly contain 2 screens - '/','/analytics' <br/>
+• `Home` component handle the '/' route screen where information will be taken for vote<br/>
+• `Analytics` component handle the analytics screen where voting summary will be visible in different charts with help of chart.js<br/>
+      
+It contains 3 different chart - `Line chart` , `Bar chart`, `Pie Chart`

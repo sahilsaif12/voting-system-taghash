@@ -37,7 +37,7 @@ function Analytics() {
   useEffect(() => {
     async function getData() {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_SERVER}/voters/voteCount`)
+            const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/voters/voteCount`)
             
             if (res.data.success) {
               let d=res.data.data

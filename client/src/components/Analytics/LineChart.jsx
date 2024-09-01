@@ -44,7 +44,7 @@ backgroundColor: [
       useEffect(() => {
         async function getData() {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_SERVER}/voters/dateWiseVote`)
+                const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/voters/dateWiseVote`)
                 if (res.data.success) {
                     setdata(res.data.data)
                 }

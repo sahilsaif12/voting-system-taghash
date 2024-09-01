@@ -31,7 +31,7 @@ function Home({data,setReload}) {
         setloading(true)
         
         try {
-            const res = await axios.post(`${import.meta.env.VITE_SERVER}/voters`, {
+            const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/voters`, {
                 name,voting_choice:vote,casted_at:new Date(date).toISOString()
             })
             if (res.data.success) {

@@ -3,7 +3,7 @@ import { Pie } from 'react-chartjs-2'
 
 function PieChart({chartData}) {
   return (
-    <div  className=" w">
+    <div  className="">
         <Pie
         data={chartData}
         options={{

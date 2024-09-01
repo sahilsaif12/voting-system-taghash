@@ -7,7 +7,7 @@ import moment from 'moment';
 function LineChart() {
     const [data, setdata] = useState([])
     const chartData={
-        labels: data?.map((d) => moment(d.casted_at).format('DD-MM-YYYY')), 
+        labels: data?.map((d) => moment(d.casted_at).format('ll')), 
         datasets: [
           {
             label: "Yes ",
@@ -59,7 +59,6 @@ backgroundColor: [
       
     return (
         <div className=" w-2/5   h flex justify-center  rounded">
-
             <Line
                 data={chartData}
                 options={{

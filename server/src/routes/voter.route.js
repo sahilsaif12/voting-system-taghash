@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addVoter, getVoteDateWise, voteCount } from "../controllers/voter.controller.js";
+import { addVoter, allVoters, getVoteDateWise, voteCount } from "../controllers/voter.controller.js";
 
 const router=Router()
 router.route('/')
@@ -7,6 +7,7 @@ router.route('/')
 
 router.route('/dateWiseVote').get(getVoteDateWise)
 router.route('/voteCount').get(voteCount)
+router.route('/allVoters').get(allVoters)
 
 
 export default router

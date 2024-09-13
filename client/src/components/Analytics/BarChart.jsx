@@ -3,16 +3,11 @@ import { Bar } from 'react-chartjs-2'
 
 function BarChart({chartData}) {
   return (
-    <div className=" w-1/3">
+    <div className=" w-2/4">
     <Bar
         data={chartData}
         options={{
           plugins: {
-            title: {
-              display: true,
-              text: "Total number of votes casted till now",
-              color:"wheat",
-            },
             legend: {
               display: false
             }

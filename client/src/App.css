@@ -4,9 +4,14 @@
   /* padding: 2rem; */
   /* text-align: center; */
   /* overflow-x: hidden; */
+
+}
+body{
+  overflow-x: hidden;
+  background-color: #0D1320;
 }
 .dd{
-  background-color: #7171716b;
+  background-color: #e01a1a6b;
 }
 .logo {
   height: 6em;

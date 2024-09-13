@@ -13,9 +13,10 @@ function LineChart() {
             label: "Yes ",
             data:data?.map((d) => d.yesCnt),
             backgroundColor: [
-          '#48A4FF',
+        //   '#48A4FF',
+          'lightgreen'
         ],
-            borderColor: "#48A4FF",
+            borderColor: "lightgreen",
             borderWidth: 4,
             tension: 0.3,
             pointStyle: 'circle',
@@ -58,18 +59,20 @@ backgroundColor: [
       
       
     return (
-        <div className=" w-2/5   h flex justify-center  rounded">
+        <div className=" w-3/5 my-2 h flex flex-col justify-center  rounded">
+        <div className="">
+
+<div className="text-lg text-left text-gray-200 mb-4 font-semibold">Trends of both vote over the time</div>
+<div className="text-sm text-gray-400 mb-3"> ↪ This line graph illustrating two distinct trends: one for "Yes" votes and the other for "No" votes, showing the daily count of each vote type over time.</div>
+
+</div>
             <Line
                 data={chartData}
                 options={{
                     
                     responsive: true,
                     plugins: {
-                        title: {
-                            display: true,
-                            text: "Number of vote casted on every dates",
-                            color: "wheat"
-                        },
+                        
                         legend: {
                             display: true
                         },

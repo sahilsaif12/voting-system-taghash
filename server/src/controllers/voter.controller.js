@@ -31,29 +31,64 @@ const addVoter = asyncHandler(async (req, res) => {
 const getVoteDateWise = asyncHandler(async (req, res) => {
 
   try {
-    const voters = await prisma.voter.findMany({
-      select: {
-        voting_choice: true,
-        casted_at: true,
-      },
-    });
-    let totalYes = 0
-    let totalNo = 0
-    const result = voters.reduce((acc, voter) => {
-      const casted_at = voter.casted_at
+    // const voters = await prisma.voter.findMany({
+    //   select: {
+    //     voting_choice: true,
+    //     casted_at: true,
+    //   },
+    // });
+    // const result = voters.reduce((acc, voter) => {
+    //   const casted_at = voter.casted_at
 
-      if (!acc[casted_at]) {
-        acc[casted_at] = { casted_at, yesCnt: 0, noCnt: 0 };
-      }
+    //   if (!acc[casted_at]) {
+    //     acc[casted_at] = { casted_at, yesCnt: 0, noCnt: 0 };
+    //   }
 
-      if (voter.voting_choice === 'yes') {
-        acc[casted_at].yesCnt += 1;
-      } else if (voter.voting_choice === 'no') {
-        acc[casted_at].noCnt += 1;
-      }
+    //   if (voter.voting_choice === 'yes') {
+    //     acc[casted_at].yesCnt += 1;
+    //   } else if (voter.voting_choice === 'no') {
+    //     acc[casted_at].noCnt += 1;
+    //   }
 
-      return acc;
-    }, {});
+    //   return acc;
+    // }, {});
+
+    const yesArr= await prisma.voter.groupBy({
+      by: ["casted_at"],
+      where: {
+      voting_choice: 'yes',
+    },
+    _count: {
+      id: true, 
+    },
+  })
+    const noArr= await prisma.voter.groupBy({
+      by: ["casted_at"],
+      where: {
+      voting_choice: 'no',
+    },
+    _count: {
+      id: true, 
+    },
+  })
+  
+
+  const resultMap = new Map();
+
+  yesArr.forEach(({ casted_at, _count }) => {
+    resultMap.set(casted_at, { casted_at, yesCnt: _count.id, noCnt: 0 });
+  });
+
+  noArr.forEach(({ casted_at, _count }) => {
+    if (resultMap.has(casted_at)) {
+      resultMap.get(casted_at).noCnt = _count.id;
+    } else {
+      resultMap.set(casted_at, { casted_at, yesCnt: 0, noCnt: _count.id });
+    }
+  });
+
+  const result = Array.from(resultMap.values()).sort((a, b) => new Date(a.casted_at) - new Date(b.casted_at));
+
 
 
     res.status(200).json(

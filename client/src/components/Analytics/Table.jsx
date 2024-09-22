@@ -7,22 +7,25 @@ function Table() {
     const [voters, setvoters] = useState([])
     const [page, setpage] = useState(1)
     const [totalPage, settotalPage] = useState(1)
+    const [loading, setloading] = useState(false)
     const ref = useRef()
 
     useEffect(() => {
         async function getData(voterPerPage) {
-            try {
+          try {
+              setloading(true)
                 const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/voters/allVoters`,{
                     params:{page,voterPerPage}
                 })
                 let data=res.data
                 if (data.success) {
-                    setvoters(data.data.voters)
-                    settotalPage(data.data.totalPage)
+                  setvoters(data.data.voters)
+                  settotalPage(data.data.totalPage)
+                  setloading(false)
                     console.log(res.data.data);
-                    
                 }
             } catch (error) {
+              setloading(false);
                 console.log(error);
                 
             }
@@ -38,6 +41,8 @@ function Table() {
       }
 
       const  handleNext=() => {
+        console.log(page);
+        
         setpage(page+1)
       }
       
@@ -47,7 +52,9 @@ function Table() {
         if (value>totalPage || value<1) {
           ref.current.value=page
         }
-        else setpage(value)
+        else setpage(Number(value))
+        console.log(value);
+        
 
       }
 
@@ -55,6 +62,7 @@ function Table() {
     <div className="w-full flex flex-col items-center p-3">
     <div class="flex flex-col md:w-3/5 " >
     <div className="">
+
 
     <div className="text-lg text-left text-gray-200 mb-4 font-semibold">All Details of the voters</div>
     <div className="text-sm text-gray-400 mb-3"> ↪ A well-organized voting list documenting each participant’s name, vote type (Yes/No), and the date of vote submission, ensuring a clear and accurate voting record.</div>
@@ -75,9 +83,33 @@ function Table() {
                 voters?.map((data) =>{
                     return (
             <tr class=" hover:bg-gray-950/20  transition ease-in-out">
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-gray-800 dark:text-neutral-200">{data.name} </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-800 dark:text-neutral-200">{data.voting_choice}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-800 dark:text-neutral-200">{moment(data.casted_at).format('ll')}</td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-gray-800 dark:text-neutral-200">
+              {
+                loading?
+            <div className="skeleton rounded-md bg-slate-800/90  transition ease-in-out h-5"></div>
+            :
+
+              data.name
+              }
+              
+               </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-800 dark:text-neutral-200">
+              {
+                loading?
+            <div className="skeleton rounded-md bg-slate-800/90  transition ease-in-out h-5"></div>
+            :
+              data.voting_choice
+              }
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-800 dark:text-neutral-200">
+              {
+                loading?
+            <div className="skeleton rounded-md bg-slate-800/90  transition ease-in-out h-5"></div>
+            :
+              moment(data.casted_at).format('ll')
+              }
+              </td>
              
             </tr>)
             
